@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('./assets/scss/modules/_font.scss');
+
+body {
+    @apply min-h-screen overflow-hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Poppins, 'sans-serif';
+}
+
+p, a, li, span, button {
+    font-family: Roboto, sans-serif;
+}

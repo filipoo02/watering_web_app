@@ -1,0 +1,15 @@
+<div class="flex flex-col p-5 gap-2">
+    <ng-container *ngIf="currentUser$ | async as currentUser">
+        <span>{{ currentUser.login }}</span>
+    </ng-container>
+    <p>{{ 'login' | translate }}</p>
+    <p>{{ 'change-to-en' | translate }}</p>
+    <form (ngSubmit)="onSubmit()">
+        <div class="wat-input mb-5">
+            <input placeholder="Wpisz login" type="text" name="login" id="login">
+            <label for="login">Login</label>
+        </div>
+        <button class="px-3 py-1.5 bg-primary-40" [ngClass]="{'bg-gray-400': isSubmitting$ | async}">Zaloguj się</button>
+    </form>
+
+</div>

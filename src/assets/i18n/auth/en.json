@@ -1,0 +1,8 @@
+{
+    "login": "Login",
+    "register": "Register",
+    "auth_wrapper": {
+        "title": "Automatic watering system",
+        "description": "Save your valuable <strong>time</strong> and improve plant breeding!"
+    }
+}

@@ -1,0 +1,25 @@
+.wat-input {
+    @apply relative border border-dark-80 rounded overflow-hidden text-base;
+    
+    label {
+        @apply absolute top-6 left-3.5 translate-y-[-50%] transition-all;
+    }
+    input {
+        @apply h-12 px-3.5 pt-2;
+
+        &::placeholder {
+            @apply opacity-0 transition;
+        }
+
+        &:not(:placeholder-shown) + label,
+        &:focus + label {
+            @apply text-2xs top-2.5;
+        }
+
+        &:focus {
+            &::placeholder {
+                @apply opacity-100;
+            }
+        }
+    };
+}

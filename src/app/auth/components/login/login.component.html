@@ -4,12 +4,16 @@
     </ng-container>
     <p>{{ 'login' | translate }}</p>
     <p>{{ 'change-to-en' | translate }}</p>
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="wat-input mb-5">
-            <input placeholder="Wpisz login" type="text" name="login" id="login">
-            <label for="login">Login</label>
+            <input placeholder="Wpisz email" type="text" formControlName="email" name="email" id="email">
+            <label for="email">Email</label>
+        </div>
+        <div class="wat-input mb-5">
+            <input placeholder="Wpisz password" type="text" formControlName="password" name="password" id="password">
+            <label for="password">Password</label>
         </div>
         <button class="px-3 py-1.5 bg-primary-40" [ngClass]="{'bg-gray-400': isSubmitting$ | async}">Zaloguj się</button>
     </form>
-
+<!--TODO translations-->
 </div>

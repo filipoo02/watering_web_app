@@ -1,15 +1,30 @@
+<!-- TODO - translations -->
 <div class="flex flex-col p-5 gap-2">
     <ng-container *ngIf="currentUser$ | async as currentUser">
         <span>{{ currentUser.login }}</span>
     </ng-container>
     <p>{{ 'login' | translate }}</p>
     <p>{{ 'change-to-en' | translate }}</p>
-    <form (ngSubmit)="onSubmit()">
-        <div class="wat-input mb-5">
-            <input placeholder="Wpisz login" type="text" name="login" id="login">
-            <label for="login">Login</label>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="wat-input" [class.wat-input--error]="form.get('email')?.touched && form.get('email')?.errors">
+            <div>
+                <input placeholder="Wpisz e-mail" type="email" formControlName="email" id="email">
+                <label for="email">E-mail</label>
+            </div>
+            <span *ngIf="form.get('email')?.touched && form.get('email')?.errors" class="wat-input--error-msg">Wpisz e-mail</span>
         </div>
-        <button class="px-3 py-1.5 bg-primary-40" [ngClass]="{'bg-gray-400': isSubmitting$ | async}">Zaloguj się</button>
+        <div class="wat-input" [class.wat-input--error]="form.get('password')?.touched && form.get('password')?.errors">
+            <div>
+                <input placeholder="Wpisz hasło" [type]="passwordInputType" formControlName="password" id="password">
+                <label for="password">Hasło</label>
+                <button (click)="togglePasswordVisibility()" type="button" class="wat-input--icon">
+                    <!-- TODO - icon -->
+                    {{ passwordInputType == 'password' ? 'O' : 'X'}}
+                </button>
+            </div>
+            <span *ngIf="form.get('password')?.touched && form.get('password')?.errors" class="wat-input--error-msg">Wpisz hasło (min. 12 znaków)</span>
+        </div>
+        <button [disabled]="isSubmitting$ | async" class="px-3 py-1.5 bg-primary-40" [ngClass]="{'bg-gray-400': isSubmitting$ | async}">Zaloguj się</button>
     </form>
 
 </div>

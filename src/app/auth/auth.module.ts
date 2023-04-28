@@ -23,7 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 const routes: Route[] = [
   {
-    path: '',
+    path: 'auth',
     component: AuthWrapperComponent,
     children: [
       {

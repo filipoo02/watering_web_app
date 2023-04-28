@@ -19,6 +19,9 @@ module.exports = {
         'dark-60': '#6B6F68',
         'dark-80': '#3E4339',
         'dark-100': '#191F14',
+        'error-40': '#FF4C4D',
+        'error-60': '#FF0000',
+        'error-80': '#CC0000',
       },
       fontSize: {
         '2xs': '0.625rem'

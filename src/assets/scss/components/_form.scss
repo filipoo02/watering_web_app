@@ -1,0 +1,56 @@
+.wat-input {
+    @apply flex flex-col mb-2;
+
+    & > div {
+        @apply bg-white relative border border-dark-80 text-dark-80 rounded overflow-hidden text-sm transition-colors;
+    }
+
+    label {
+        @apply absolute top-5 left-3.5 translate-y-[-50%] transition-all;
+    }
+
+    input {
+        @apply h-10 px-3.5 pt-2.5 bg-transparent w-full;
+
+        &::placeholder {
+            @apply opacity-0 transition;
+        }
+
+        &:not(:placeholder-shown) + label,
+        &:focus + label {
+            @apply text-2xs top-2.5 text-dark-60;
+        }
+
+        &:focus {
+            &::placeholder {
+                @apply opacity-100;
+            }
+        }
+    };
+
+    &--error {
+        @apply mb-0;
+        
+        & > div {
+            @apply border-error-60; 
+        }
+
+        & input,
+        & > div {
+            box-shadow: inset 0 0 0 1px rgb(239 68 68);
+        }
+
+        & input:focus {
+            @apply outline-none;
+        }
+    }
+
+    &--error-msg {
+        @apply font-medium text-2xs p-0.5 text-error-60;
+    }
+
+    &--icon {
+        @apply absolute top-5 right-1 p-2 bg-white text-sm translate-y-[-50%];
+    }
+
+}

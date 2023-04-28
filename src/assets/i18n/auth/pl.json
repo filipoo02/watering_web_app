@@ -4,5 +4,16 @@
     "auth_wrapper": {
         "title": "Automatyczne nawadnianie roślin",
         "description": "Oszczędź cenny <strong>czas</strong> i usprawnij hodowlę!"
-    }
+    },
+    "login_title_1": "Witaj ",
+    "login_title_2": "ponownie!",
+    "errors": {
+        "email": "Wpisz e-mail",
+        "password": "Wpisz hasło (min. 12 znaków)"
+    },
+    "labels": {
+        "password": "Hasło"
+    },
+    "forgot-password": "Nie pamiętasz hasła?",
+    "create-account": "Załóż konto"
 }

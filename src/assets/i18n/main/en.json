@@ -1,5 +1,10 @@
 {
     "title": "Watergin system",
     "change-to-en": "Change lang to en",
-    "change-to-pl": "Change lang to pl"
+    "change-to-pl": "Change lang to pl",
+    "common": {
+        "errors": {
+            "not-authenticated": "You're not logged in. Please log in."
+        }
+    }
 }

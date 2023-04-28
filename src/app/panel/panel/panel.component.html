@@ -1,0 +1,13 @@
+<main class="flex flex-row w-full h-full">
+    <nav class="w-80 bg-primary-20">
+        <h1>{{ 'panel.title' | translate }}</h1>
+        <ul>
+            <li class="p-5">
+                <a routerLink="/">Dashboard</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="w-full bg-primary-0">
+        <router-outlet></router-outlet>
+    </section>
+</main>

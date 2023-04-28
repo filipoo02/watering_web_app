@@ -1,5 +1,10 @@
 {
     "title": "System nawadniania",
     "change-to-en": "Zmień na angielski",
-    "change-to-pl": "Zmień na polski"
+    "change-to-pl": "Zmień na polski",
+    "common": {
+        "errors": {
+            "not-authenticated": "Nie jesteś zalogowany. Prosimy się zalogować."
+        }
+    }
 }

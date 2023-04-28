@@ -1,35 +1,43 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {APP_CONFIG} from './config/app.config';
-import {AppConfigInterface} from './config/app-config.interface';
+import { Observable } from 'rxjs';
+
+import { APP_CONFIG } from './config/app.config';
+import { AppConfigInterface } from './config/app-config.interface';
+import { PersistenceLsService } from './services/persistence/persistence-ls.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
+  constructor(
+    @Inject(APP_CONFIG) private config: AppConfigInterface,
+    private persistenceLocalStorage: PersistenceLsService
+  ) {}
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfigInterface) {
-  }
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    //  concat api url
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     let url = request.url;
 
     if (this.shouldBePrefixed(url)) {
       url = this.config.apiUrl + request.url;
     }
 
-    const clonedRequest = request.clone({
-      url
-    })
+    const headers = request.headers;
+    const accessToken = this.persistenceLocalStorage.getValue('access_token');
 
-    // add token to the header
-    // let headers = request.headers;
-    // headers.set('', `${}`)
+    headers.set('Authorization', `Bearer ${accessToken}`);
+
+    const clonedRequest = request.clone({
+      url,
+      headers,
+    });
+
     return next.handle(clonedRequest);
   }
 

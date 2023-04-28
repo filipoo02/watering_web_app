@@ -1,11 +1,16 @@
+@use './assets/scss/components/index';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import 'ngx-toastr/toastr';
 @import url('./assets/scss/modules/_font.scss');
+@import url('./assets/scss/modules/_icons.scss');
+@import './assets/scss/modules/_toast.scss';
 
-body {
-    @apply min-h-screen overflow-hidden;
+body, html, app-root {
+    @apply w-full h-full overflow-x-hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {

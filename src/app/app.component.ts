@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import {Store} from '@ngrx/store';
 
-import { LangType } from './services/translate-helper/language.type';
-import { TranslateHelperService } from './services/translate-helper/translate-helper.service';
+import {AppStateInterface} from './shared/types/app-state.interface';
+import {logoutAction} from './auth/store/actions/logout.action';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'watering_app';
 
-  constructor(private translateHelperService: TranslateHelperService) {}
+  constructor(private store: Store<AppStateInterface>) {}
 
-  changeLang(lang: LangType): void {
-    this.translateHelperService.setLang(lang);
+  ngOnDestroy(): void {
+    this.store.dispatch(logoutAction())
   }
 }

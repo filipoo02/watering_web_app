@@ -23,6 +23,8 @@ import { enviroment } from '../environmets/enviroment';
 import { ApiInterceptor } from './api.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { PanelModule } from './panel/panel.module';
+import { ErrorHandlerInterceptor } from './error-handler.interceptor';
+import { PersistenceLsService } from './services/persistence/persistence-ls.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/main/', '.json');
@@ -80,13 +82,19 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: ApiInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private translateHelperService: TranslateHelperService) {
-    let language = localStorage.getItem('lang') as LangType | null;
+  constructor(private translateHelperService: TranslateHelperService, private persistenceLs: PersistenceLsService) {
+    let language = this.persistenceLs.getValue('lang') as LangType | null;
     if (!language) {
+      this.persistenceLs.setValue('lang', 'pl');
       this.translateHelperService.setLang('pl');
       return;
     }

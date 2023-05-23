@@ -10,13 +10,14 @@ import {
   isSubmittingSelector,
 } from '../../store/selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBaseComponent} from '../../../shared/components/form-base/form-base.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends FormBaseComponent implements OnInit {
   passwordInputType: 'password' | 'text' = 'password';
   isSubmitting$: Observable<boolean>;
   currentUser$: Observable<CurrentUserInterface>;
@@ -25,14 +26,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private store: Store<AppStateInterface>,
     private fb: FormBuilder
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.initializeForm();
     this.initializeValues();
   }
 
-  initializeValues(): void {
+  private initializeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.currentUser$ = this.store.pipe(
       select(currentUserSelector),
@@ -40,20 +43,15 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  initializeForm(): void {
+  dispatchSubmitAction(): void {
+    this.store.dispatch(loginAction({ request: this.form.value }));
+  }
+
+  private initializeForm(): void {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(12)]],
     });
-  }
-
-  onSubmit(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.store.dispatch(loginAction({ request: this.form.value }));
   }
 
   togglePasswordVisibility(): void {

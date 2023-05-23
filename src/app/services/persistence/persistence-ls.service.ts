@@ -6,7 +6,7 @@ import { PersistenceService } from './persistence';
  */
 @Injectable({ providedIn: 'root' })
 export class PersistenceLsService extends PersistenceService {
-  override setValue<T>(key: string, value: T): void {
+  override setValue(key: string, value: unknown): void {
     window.localStorage.setItem(key, JSON.stringify(value));
   }
 
@@ -18,5 +18,13 @@ export class PersistenceLsService extends PersistenceService {
     }
 
     return JSON.parse(value);
+  }
+
+  override deleteValue(key: string): void {
+    if (!this.getValue(key)) {
+      return;
+    }
+
+    window.localStorage.removeItem(key);
   }
 }

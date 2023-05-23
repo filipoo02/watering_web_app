@@ -16,6 +16,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { LoginEffect } from './store/effects/login.effect';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterEffect } from './store/effects/register.effect';
+import { LogoutEffect } from './store/effects/logout.effect';
+import { RefreshTokenEffect } from './store/effects/refresh-token.effect';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/auth/', '.json');
@@ -45,7 +48,12 @@ const routes: Route[] = [
     CommonModule,
     FormsModule,
     StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([LoginEffect]),
+    EffectsModule.forFeature([
+      LoginEffect,
+      RegisterEffect,
+      LogoutEffect,
+      RefreshTokenEffect,
+    ]),
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

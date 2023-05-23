@@ -1,0 +1,10 @@
+<div class="flex flex-col gap-6">
+  <h2 class="text-2xl">Urządzenia</h2>
+  <ng-container *ngIf="device$ | async as device; else noDevice">
+    {{device.name}}
+  </ng-container>
+
+  <ng-template #noDevice>
+    <span>Dodaj urządzenie.</span>
+  </ng-template>
+</div>

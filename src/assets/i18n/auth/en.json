@@ -1,19 +1,22 @@
 {
-    "login": "Login",
-    "register": "Register",
-    "auth_wrapper": {
-        "title": "Automatic watering system",
-        "description": "Save your valuable <strong>time</strong> and improve plant breeding!"
-    },
-    "login_title_1": "Hello ",
-    "login_title_2": "again!",
-    "errors": {
-        "email": "Enter e-mail",
-        "password": "Enter password (min. 12 characters)"
-    },
-    "labels": {
-        "password": "Password"
-    },
-    "forgot-password": "Forgot password?",
-    "create-account": "Create account"
+  "login": "Login",
+  "register": "Register",
+  "auth_wrapper": {
+    "title": "Automatic watering system",
+    "description": "Save your valuable <strong>time</strong> and improve plant breeding!"
+  },
+  "login_title_1": "Hello ",
+  "login_title_2": "again!",
+  "errors": {
+    "email": "Enter e-mail",
+    "password": "Enter password (min. 12 characters)",
+    "password_not_match": "The passwords have to be the same"
+  },
+  "labels": {
+    "password": "Password",
+    "confirm_password": "Confirm password"
+  },
+  "forgot-password": "Forgot password?",
+  "create-account": "Create account",
+  "terms": "I have read and agree to the terms"
 }

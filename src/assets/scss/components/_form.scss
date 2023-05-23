@@ -30,9 +30,9 @@
 
     &--error {
         @apply mb-0;
-        
+
         & > div {
-            @apply border-error-60; 
+            @apply border-error-60;
         }
 
         & input,
@@ -46,7 +46,7 @@
     }
 
     &--error-msg {
-        @apply font-medium text-2xs p-0.5 text-error-60;
+        @apply text-2xs p-0.5 text-error-60;
     }
 
     &--icon {

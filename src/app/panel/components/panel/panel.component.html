@@ -1,13 +1,19 @@
 <main class="flex flex-row w-full h-full">
     <nav class="w-80 bg-primary-20">
         <h1>{{ 'panel.title' | translate }}</h1>
-        <ul>
+        <ul class="flex flex-col">
             <li class="p-5">
                 <a routerLink="/">Dashboard</a>
             </li>
+            <li class="p-5">
+                <a routerLink="/device">Urządzenia</a>
+            </li>
         </ul>
+      <button (click)="logout()" type="button">
+        Logout
+      </button>
     </nav>
-    <section class="w-full bg-primary-0">
+    <section class="w-full bg-primary-0 p-24">
         <router-outlet></router-outlet>
     </section>
 </main>

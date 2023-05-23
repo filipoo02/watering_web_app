@@ -1,2 +1,69 @@
-<p>{{ 'register' | translate }}</p>
-<h1>{{ 'title' | translate }}</h1>
+<div class="flex flex-col p-8 gap-2 rounded shadow bg-white max-w-[320px]">
+  <div class="mb-5 text-center text-3xl text-dark-100 flex flex-col">
+    <span>{{ 'login_title_1' | translate}}</span>
+    <span>{{ 'login_title_2' | translate}}</span>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="wat-input" [class.wat-input--error]="form.get('email')?.touched && form.get('email')?.errors">
+      <div>
+        <input placeholder=" " type="email" formControlName="email" id="email">
+        <label for="email">E-mail</label>
+      </div>
+      <span *ngIf="form.get('email')?.touched && form.get('email')?.errors" class="wat-input--error-msg">{{ 'errors.email' | translate }}</span>
+    </div>
+    <div class="wat-input" [class.wat-input--error]="form.get('password')?.touched && form.get('password')?.errors">
+      <div>
+        <input #passwordEl placeholder=" " type="password" formControlName="password" id="password">
+        <label for="password">{{ 'labels.password' | translate }}</label>
+        <button (click)="togglePasswordVisibility($event)" type="button" class="wat-input--icon">
+            <span class="wat-icon wat-icon--outline text-lg">
+                {{ passwordEl.type == 'password' ? 'visibility' : 'visibility_off'}}
+            </span>
+        </button>
+      </div>
+      <span *ngIf="form.get('password')?.touched && form.get('password')?.errors" class="wat-input--error-msg">{{ 'errors.password' | translate }}</span>
+    </div>
+    <div class="wat-input" [class.wat-input--error]="form.get('confirm_password')?.touched && form.get('confirm_password')?.errors">
+      <div>
+        <input #confirmPasswordEl placeholder=" " type="password" formControlName="confirm_password" id="confirm_password">
+        <label for="confirm_password">{{ 'labels.confirm_password' | translate }}</label>
+        <button (click)="togglePasswordVisibility($event)" type="button" class="wat-input--icon">
+                    <span class="wat-icon wat-icon--outline text-lg">
+                        {{ confirmPasswordEl.type == 'password' ? 'visibility' : 'visibility_off'}}
+                    </span>
+        </button>
+      </div>
+      <span
+        *ngIf="form.get('confirm_password')?.touched && form.get('confirm_password')?.errors"
+        class="wat-input--error-msg"
+      >
+        {{ 'errors.password' | translate }}
+      </span>
+      <span
+        *ngIf="passwordsNotMatch"
+        class="wat-input--error-msg"
+      >
+        {{ 'errors.password_not_match' | translate }}
+      </span>
+    </div>
+    <div class="flex gap-2">
+<!--      TODO checkbox style      -->
+      <input type="checkbox" formControlName="terms" id="terms">
+      <label for="terms" class="text-xs text-dark-80">{{ 'terms' | translate }}</label>
+    </div>
+    <button
+      type="submit"
+      [class.wat-btn--pending]="isSubmitting$ | async"
+      class="wat-btn wat-btn--primary w-full mt-2"
+    >
+        <span>
+            {{ 'login' | translate }}
+        </span>
+    </button>
+  </form>
+
+  <div class="mt-5 flex justify-between">
+    <a class="text-xs text-gray-500 hover:text-gray-600" routerLink="/auth/forgot-password">{{ 'forgot-password' | translate }}</a>
+    <a class="text-xs text-gray-500 hover:text-gray-600 transition-colors" routerLink="/auth/login">{{ 'login' | translate }}</a>
+  </div>
+</div>

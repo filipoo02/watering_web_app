@@ -41,7 +41,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
     headers = headers
       .set('Authorization', `Bearer ${token}`)
-      .set('Accept-Language', this.persistenceLocalStorage.getValue('lang') ?? 'pl');
+      .set('Accept-Language', localStorage['lang'] ?? 'pl');
 
     const clonedRequest = request.clone({
       url,

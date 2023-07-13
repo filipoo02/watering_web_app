@@ -2,7 +2,7 @@
     @apply px-5 mt-2 py-3 shadow-md rounded text-sm text-white/[90];
     font-family: Roboto, sans-serif;
     pointer-events: all;
-    
+
     &--success {
         @apply bg-primary-40;
     }
@@ -10,4 +10,8 @@
     &--error {
         @apply bg-error-40;
     }
+
+  &--info {
+    @apply bg-primary-30;
+  }
 }

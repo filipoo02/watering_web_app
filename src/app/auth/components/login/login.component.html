@@ -1,40 +1,40 @@
-<div class="flex flex-col p-8 gap-2 rounded shadow bg-white">
-    <div class="mb-5 text-center text-3xl text-dark-100 flex flex-col">
-        <span>{{ 'login_title_1' | translate}}</span>
-        <span>{{ 'login_title_2' | translate}}</span>
+<div class="flex flex-col p-8 gap-2 rounded shadow bg-white w-[320px]">
+  <div class="mb-5 text-center text-3xl text-dark-100 flex flex-col">
+    <span>{{ 'login_title_1' | translate}}</span>
+    <span>{{ 'login_title_2' | translate}}</span>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="wat-input" [class.wat-input--error]="form.get('email')?.touched && form.get('email')?.errors">
+      <div>
+          <input placeholder=" " type="email" formControlName="email" id="email">
+          <label for="email">E-mail</label>
+      </div>
+      <span *ngIf="form.get('email')?.touched && form.get('email')?.errors" class="wat-input--error-msg">{{ 'errors.email' | translate }}</span>
     </div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="wat-input" [class.wat-input--error]="form.get('email')?.touched && form.get('email')?.errors">
-            <div>
-                <input placeholder=" " type="email" formControlName="email" id="email">
-                <label for="email">E-mail</label>
-            </div>
-            <span *ngIf="form.get('email')?.touched && form.get('email')?.errors" class="wat-input--error-msg">{{ 'errors.email' | translate }}</span>
-        </div>
-        <div class="wat-input" [class.wat-input--error]="form.get('password')?.touched && form.get('password')?.errors">
-            <div>
-                <input placeholder=" " [type]="passwordInputType" formControlName="password" id="password">
-                <label for="password">{{ 'labels.password' | translate }}</label>
-                <button (click)="togglePasswordVisibility()" type="button" class="wat-input--icon">
-                    <span class="wat-icon wat-icon--outline text-lg">
-                        {{ passwordInputType == 'password' ? 'visibility' : 'visibility_off'}}
-                    </span>
-                </button>
-            </div>
-            <span *ngIf="form.get('password')?.touched && form.get('password')?.errors" class="wat-input--error-msg">{{ 'errors.password' | translate }}</span>
-        </div>
-        <button
-            [class.wat-btn--pending]="isSubmitting$ | async"
-            class="wat-btn wat-btn--primary w-full mt-2"
-        >
-        <span>
-            {{ 'login' | translate }}
-        </span>
-        </button>
-    </form>
+    <div class="wat-input" [class.wat-input--error]="form.get('password')?.touched && form.get('password')?.errors">
+      <div>
+          <input placeholder=" " [type]="passwordInputType" formControlName="password" id="password">
+          <label for="password">{{ 'labels.password' | translate }}</label>
+          <button (click)="togglePasswordVisibility()" type="button" class="wat-input--icon">
+              <span class="wat-icon wat-icon--outline text-lg">
+                  {{ passwordInputType == 'password' ? 'visibility' : 'visibility_off'}}
+              </span>
+          </button>
+      </div>
+      <span *ngIf="form.get('password')?.touched && form.get('password')?.errors" class="wat-input--error-msg">{{ 'errors.password' | translate }}</span>
+    </div>
+    <button
+      [class.wat-btn--pending]="isSubmitting$ | async"
+      class="wat-btn wat-btn--primary w-full mt-2"
+    >
+    <span>
+      {{ 'login' | translate }}
+    </span>
+    </button>
+  </form>
 
-    <div class="mt-5 flex gap-10">
-        <a class="text-xs text-gray-500 hover:text-gray-600" routerLink="/auth/forgot-password">{{ 'forgot-password' | translate }}</a>
-        <a class="text-xs text-gray-500 hover:text-gray-600 transition-colors" routerLink="/auth/register">{{ 'create-account' | translate }}</a>
-    </div>
+  <div class="mt-5 flex gap-10 justify-between">
+    <a class="text-xs text-gray-500 hover:text-gray-600" routerLink="/auth/forgot-password">{{ 'forgot-password' | translate }}</a>
+    <a class="text-xs text-gray-500 hover:text-gray-600 transition-colors" routerLink="/auth/register">{{ 'create-account' | translate }}</a>
+  </div>
 </div>

@@ -1,9 +1,9 @@
-import {Directive, inject, Renderer2} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { Directive } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Directive()
 export abstract class FormBaseComponent {
-  abstract form: FormGroup;
+  form: FormGroup;
   abstract dispatchSubmitAction(): void;
 
   get isFormValid(): boolean {
@@ -11,8 +11,6 @@ export abstract class FormBaseComponent {
   }
 
   onSubmit(): void {
-    console.log('is form valid?', this.isFormValid);
-    console.log(this.form);
     if (!this.isFormValid) {
       this.form.markAllAsTouched();
       this.scrollToTheFirstError();

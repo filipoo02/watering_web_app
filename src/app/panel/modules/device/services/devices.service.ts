@@ -7,12 +7,12 @@ import {CreateDeviceInterface} from '../types/create-device.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class DeviceListService {
+export class DevicesService {
   url = '/device'
   http = inject(HttpClient);
 
-  getDevice(): Observable<DeviceInterface> {
-    return this.http.get<DeviceInterface>(this.url);
+  getDevices(): Observable<DeviceInterface[]> {
+    return this.http.get<DeviceInterface[]>(this.url);
   }
 
   create(data: CreateDeviceInterface): Observable<{id: string}> {

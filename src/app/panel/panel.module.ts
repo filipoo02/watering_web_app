@@ -11,8 +11,6 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHelperService } from '../services/translate-helper/translate-helper.service';
 import { AuthService } from '../auth/services/auth.service';
-import { DeviceFormComponent } from './modules/device/components/device-form/device-form.component';
-import { DeviceListComponent } from './modules/device/components/device-list/device-list.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/panel/', '.json');

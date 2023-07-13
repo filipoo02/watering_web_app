@@ -4,22 +4,18 @@ import { Router } from '@angular/router';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
-import {
-  refreshTokenAction,
-  refreshTokenFailureAction,
-  refreshTokenSuccessAction,
-} from '../actions/refresh-token.action';
+import { refreshTokenActions } from '../actions';
 import { PersistenceLsService } from '../../../services/persistence/persistence-ls.service';
 
 @Injectable()
 export class RefreshTokenEffect {
   refreshToken$ = createEffect(() =>
     this.action$.pipe(
-      ofType(refreshTokenAction),
+      ofType(refreshTokenActions.refreshToken),
       switchMap(() =>
         this.authService.refreshToken().pipe(
-          map((tokens) => refreshTokenSuccessAction({ tokens })),
-          catchError(() => of(refreshTokenFailureAction()))
+          map((tokens) => refreshTokenActions.refreshTokenSuccess({ tokens })),
+          catchError(() => of(refreshTokenActions.refreshTokenFailure()))
         )
       )
     )
@@ -28,7 +24,7 @@ export class RefreshTokenEffect {
   refreshTokenFailure$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(refreshTokenFailureAction),
+        ofType(refreshTokenActions.refreshTokenFailure),
         tap(() => this.router.navigateByUrl('/auth/login'))
       ),
     { dispatch: false }
@@ -37,7 +33,7 @@ export class RefreshTokenEffect {
   refreshTokenSuccess$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(refreshTokenSuccessAction),
+        ofType(refreshTokenActions.refreshTokenSuccess),
         map((res) => res.tokens),
         tap(({ access_token, refresh_token }) => {
           this.persistenceLsService.setValue('access_token', access_token);

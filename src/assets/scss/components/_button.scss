@@ -1,9 +1,16 @@
 button.wat-btn {
     @apply rounded shadow px-6 py-2 relative;
-    
+
     & span {
         @apply text-sm text-white/80 transition-colors transition-opacity opacity-100;
     }
+
+  &--small {
+      @apply px-4 py-1;
+      & span {
+        @apply text-xs;
+    }
+  }
 
     &--primary {
         @apply bg-primary-60 transition-colors;
@@ -16,7 +23,7 @@ button.wat-btn {
             }
         }
     }
-    
+
     &--pending {
         @apply pointer-events-none bg-dark-40;
 

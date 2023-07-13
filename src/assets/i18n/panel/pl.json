@@ -1,5 +1,23 @@
 {
-    "panel": {
-        "title": "Tytuł"
+  "title": "Tytuł",
+  "sidebar": {
+    "devices": "Urządzenia"
+  },
+  "device": {
+    "title": "Urządzenia",
+    "no_devices": "Brak urządzeń.",
+    "add_first_device": "Dodaj swoje pierwsze urządzenie!",
+    "create_title": "Nowe urządzenie",
+    "active": "Aktywne",
+    "inactive": "Nieaktywne",
+    "device_id_copied": "ID urządzenia skopiowano do schowka",
+    "form": {
+      "submit": "Dodaj urządzenie",
+      "name": "Nazwa",
+      "description": "Opis",
+      "errors": {
+        "name": "Wpisz nazwę"
+      }
     }
+  }
 }

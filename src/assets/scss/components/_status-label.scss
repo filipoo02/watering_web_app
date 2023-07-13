@@ -1,0 +1,15 @@
+.status-label {
+  @apply text-xs px-1.5 py-1 rounded-full w-fit;
+
+  &--error {
+    @apply text-white bg-error-40;
+  }
+
+  &--warn {
+    @apply text-black bg-yellow-300;
+  }
+
+  &--success {
+    @apply text-black bg-green-600;
+  }
+}

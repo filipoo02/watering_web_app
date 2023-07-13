@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { filter, Observable } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
-import { AppStateInterface } from 'src/app/shared/types/app-state.interface';
-import { CurrentUserInterface } from 'src/app/shared/types/current-user.interface';
-import { loginAction } from '../../store/actions/login.action';
-import {
-  currentUserSelector,
-  isSubmittingSelector,
-} from '../../store/selectors';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {FormBaseComponent} from '../../../shared/components/form-base/form-base.component';
+import { FormBaseComponent } from '../../../shared/components/form-base/form-base.component';
+import { AuthFacadeService } from '../../store/auth-facade.service';
 
 @Component({
   selector: 'app-login',
@@ -18,33 +10,18 @@ import {FormBaseComponent} from '../../../shared/components/form-base/form-base.
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends FormBaseComponent implements OnInit {
-  passwordInputType: 'password' | 'text' = 'password';
-  isSubmitting$: Observable<boolean>;
-  currentUser$: Observable<CurrentUserInterface>;
-  form: FormGroup;
+  private authFacadeService = inject(AuthFacadeService);
+  private fb = inject(FormBuilder);
 
-  constructor(
-    private store: Store<AppStateInterface>,
-    private fb: FormBuilder
-  ) {
-    super();
-  }
+  passwordInputType: 'password' | 'text' = 'password';
+  isSubmitting$ = this.authFacadeService.isSubmitting$;
 
   ngOnInit(): void {
     this.initializeForm();
-    this.initializeValues();
-  }
-
-  private initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.currentUser$ = this.store.pipe(
-      select(currentUserSelector),
-      filter(Boolean)
-    );
   }
 
   dispatchSubmitAction(): void {
-    this.store.dispatch(loginAction({ request: this.form.value }));
+    this.authFacadeService.login(this.form.getRawValue());
   }
 
   private initializeForm(): void {

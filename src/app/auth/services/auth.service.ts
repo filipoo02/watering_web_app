@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 
 import { LoginRequestInterface } from '../types/login-request.interface';
 import { AppStateInterface } from 'src/app/shared/types/app-state.interface';
-import { currentUserSelector } from '../store/selectors';
 import { ToastrTranslationService } from 'src/app/services/toastr/toastr-translation.service';
 import { AuthCredentialsInterface } from '../types/auth-credentials.interface';
 import { RegisterRequestInterface } from '../types/register-request.interface';
 import { PersistenceLsService } from '../../services/persistence/persistence-ls.service';
 import { RT_REQUEST } from '../../api.interceptor';
 import { RefreshTokenInterface } from '../types/refresh-token.interface';
+import { selectCurrentUser } from '../store/reducer';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,7 @@ export class AuthService {
 
   isUserAuthenticated(): Observable<boolean> {
     return this.store.pipe(
-      select(currentUserSelector),
+      select(selectCurrentUser),
       map((user) => !!user),
       switchMap((isLoggedIn) => {
         if (this.persistenceLsService.getValue('refresh_token')) {

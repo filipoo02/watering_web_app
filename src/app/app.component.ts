@@ -1,8 +1,6 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, inject, OnDestroy } from '@angular/core';
 
-import {AppStateInterface} from './shared/types/app-state.interface';
-import {logoutAction} from './auth/store/actions/logout.action';
+import { AuthFacadeService } from './auth/store/auth-facade.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +8,10 @@ import {logoutAction} from './auth/store/actions/logout.action';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
+  private authFacadeService = inject(AuthFacadeService);
   title = 'watering_app';
 
-  constructor(private store: Store<AppStateInterface>) {}
-
   ngOnDestroy(): void {
-    this.store.dispatch(logoutAction())
+    this.authFacadeService.logout();
   }
 }

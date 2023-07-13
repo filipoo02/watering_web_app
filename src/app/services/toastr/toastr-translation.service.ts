@@ -12,9 +12,9 @@ export class ToastrTranslationService {
     private toastr: ToastrService
   ) {}
 
-  success(dictrionary: string): void {
+  success(dictionary: string): void {
     this.translate
-      .get(dictrionary)
+      .get(dictionary)
       .pipe(
         first(),
         tap((message) => this.toastr.success(message))
@@ -22,9 +22,9 @@ export class ToastrTranslationService {
       .subscribe();
   }
 
-  warning(dictrionary: string): void {
+  warning(dictionary: string): void {
     this.translate
-      .get(dictrionary)
+      .get(dictionary)
       .pipe(
         first(),
         tap((message) => this.toastr.warning(message))
@@ -32,12 +32,22 @@ export class ToastrTranslationService {
       .subscribe();
   }
 
-  error(dictrionary: string): void {
+  error(dictionary: string): void {
     this.translate
-      .get(dictrionary)
+      .get(dictionary)
       .pipe(
         first(),
         tap((message) => this.toastr.error(message))
+      )
+      .subscribe();
+  }
+
+  info(dictionary: string): void {
+    this.translate
+      .get(dictionary)
+      .pipe(
+        first(),
+        tap((message) => this.toastr.info(message))
       )
       .subscribe();
   }

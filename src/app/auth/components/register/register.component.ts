@@ -1,18 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
 import { FormBaseComponent } from '../../../shared/components/form-base/form-base.component';
-import { AppStateInterface } from '../../../shared/types/app-state.interface';
-import { registerAction } from '../../store/actions/register.action';
-import { isSubmittingSelector } from '../../store/selectors';
 import { matchValueValidator } from '../../../shared/validators/match-value.validator';
+import { AuthFacadeService } from '../../store/auth-facade.service';
 
 @Component({
   selector: 'app-register',
@@ -20,20 +11,13 @@ import { matchValueValidator } from '../../../shared/validators/match-value.vali
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends FormBaseComponent implements OnInit {
-  isSubmitting$: Observable<boolean>;
-  form: FormGroup;
+  private authFacadeService = inject(AuthFacadeService);
+  private fb = inject(FormBuilder);
 
-  constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private store: Store<AppStateInterface>
-  ) {
-    super();
-  }
+  isSubmitting$ = this.authFacadeService.isSubmitting$;
 
   ngOnInit(): void {
     this.initializeForm();
-    this.initializeValues();
   }
 
   togglePasswordVisibility(event: MouseEvent): void {
@@ -42,11 +26,7 @@ export class RegisterComponent extends FormBaseComponent implements OnInit {
   }
 
   override dispatchSubmitAction(): void {
-    this.store.dispatch(registerAction({ request: this.form.value }));
-  }
-
-  private initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
+    this.authFacadeService.register(this.form.getRawValue());
   }
 
   private initializeForm(): void {

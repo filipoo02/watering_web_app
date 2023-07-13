@@ -1,15 +1,24 @@
 <main class="flex flex-row w-full h-full">
-    <nav class="w-80 bg-primary-20">
-        <h1>{{ 'panel.title' | translate }}</h1>
+    <nav class="w-80 bg-primary-20 flex flex-col">
+      <h1 class="font-bold text-3xl py-9 mx-auto">
+        <span>Hydra</span>
+        <span class="text-primary-60">bot</span>
+      </h1>
         <ul class="flex flex-col">
-            <li class="p-5">
-                <a routerLink="/">Dashboard</a>
+            <li>
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                  <span class="wat-icon">dashboard</span>
+                  <span class="label">Dashboard</span>
+                </a>
             </li>
-            <li class="p-5">
-                <a routerLink="/device">Urządzenia</a>
+            <li>
+              <a routerLink="/device" routerLinkActive="active">
+                <span class="wat-icon">memory</span>
+                <span class="label">{{ 'sidebar.devices' | translate }}</span>
+              </a>
             </li>
         </ul>
-      <button (click)="logout()" type="button">
+      <button class="mt-auto mb-9" (click)="logout()" type="button">
         Logout
       </button>
     </nav>

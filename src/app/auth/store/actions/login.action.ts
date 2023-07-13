@@ -1,16 +1,13 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+
 import { CurrentUserInterface } from 'src/app/shared/types/current-user.interface';
 import { LoginRequestInterface } from '../../types/login-request.interface';
-import { ActionTypes } from '../action-types';
 
-export const loginAction = createAction(
-  ActionTypes.LOGIN,
-  props<{ request: LoginRequestInterface }>()
-);
-
-export const loginSuccessAction = createAction(
-  ActionTypes.LOGIN_SUCCESS,
-  props<{ currentUser: CurrentUserInterface }>()
-);
-
-export const loginFailureAction = createAction(ActionTypes.LOGIN_FAILURE);
+export const loginActions = createActionGroup({
+  source: 'login',
+  events: {
+    Login: props<{ request: LoginRequestInterface }>(),
+    'Login success': props<{ currentUser: CurrentUserInterface }>(),
+    'Login failure': emptyProps(),
+  }
+});

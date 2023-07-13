@@ -92,12 +92,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class AppModule {
   constructor(private translateHelperService: TranslateHelperService, private persistenceLs: PersistenceLsService) {
-    let language = this.persistenceLs.getValue('lang') as LangType | null;
+    let language = localStorage['lang'] as LangType | null;
     if (!language) {
       this.persistenceLs.setValue('lang', 'pl');
       this.translateHelperService.setLang('pl');
       return;
     }
-    this.translateHelperService.setLang(language);
+    this.translateHelperService.setLang('pl');
   }
 }

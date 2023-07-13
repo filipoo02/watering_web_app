@@ -4,11 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError, of, tap } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
-import {
-  loginAction,
-  loginFailureAction,
-  loginSuccessAction,
-} from '../actions/login.action';
+import { loginActions } from '../actions';
 import { PersistenceLsService } from 'src/app/services/persistence/persistence-ls.service';
 import { CurrentUserInterface } from 'src/app/shared/types/current-user.interface';
 
@@ -16,7 +12,7 @@ import { CurrentUserInterface } from 'src/app/shared/types/current-user.interfac
 export class LoginEffect {
   login$ = createEffect(() =>
     this.action$.pipe(
-      ofType(loginAction),
+      ofType(loginActions.login),
       switchMap((req) => {
         return this.authService.login(req.request).pipe(
           map((res) => {
@@ -34,9 +30,9 @@ export class LoginEffect {
               id: res.id,
             };
 
-            return loginSuccessAction({ currentUser });
+            return loginActions.loginSuccess({ currentUser });
           }),
-          catchError(() => of(loginFailureAction()))
+          catchError(() => of(loginActions.loginFailure()))
         );
       })
     )
@@ -45,7 +41,7 @@ export class LoginEffect {
   onLoginSubmit$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(loginSuccessAction),
+        ofType(loginActions.loginSuccess),
         tap(() => this.router.navigateByUrl('/'))
       ),
     { dispatch: false }

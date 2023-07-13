@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppStateInterface} from '../../../shared/types/app-state.interface';
-import {logoutAction} from '../../../auth/store/actions/logout.action';
+import {Component, inject} from '@angular/core';
+
+import {AuthFacadeService} from '../../../auth/store/auth-facade.service';
 
 @Component({
   selector: 'app-panel',
@@ -9,10 +8,9 @@ import {logoutAction} from '../../../auth/store/actions/logout.action';
   styleUrls: ['./panel.component.scss']
 })
 export class PanelComponent {
-  constructor(private store: Store<AppStateInterface>) {
-  }
+  private authFacadeService = inject(AuthFacadeService);
 
   logout(): void {
-    this.store.dispatch(logoutAction());
+    this.authFacadeService.logout();
   }
 }

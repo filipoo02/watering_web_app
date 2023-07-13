@@ -1,11 +1,7 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
+
 import { AuthStateInterface } from '../types/auth-state.interface';
-import {
-  loginAction,
-  loginFailureAction,
-  loginSuccessAction,
-} from './actions/login.action';
-import {registerAction, registerFailureAction, registerSuccessAction} from './actions/register.action';
+import { loginActions, registerActions } from './actions';
 
 const initialState: AuthStateInterface = {
   currentUser: null,
@@ -13,38 +9,45 @@ const initialState: AuthStateInterface = {
   isSubmitting: false,
 };
 
-const authReducer = createReducer(
-  initialState,
-  on(loginAction, (state) => ({
-    ...state,
-    isSubmitting: true,
-  })),
-  on(loginSuccessAction, (state, action) => ({
-    ...state,
-    isSubmitting: false,
-    isLoggedIn: true,
-    currentUser: action.currentUser,
-  })),
-  on(loginFailureAction, (state) => ({
-    ...state,
-    isSubmitting: false,
-  })),
-  on(registerAction, (state) => ({
-    ...state,
-    isSubmitting: true,
-  })),
-  on(registerSuccessAction, (state, action) => ({
-    ...state,
-    isSubmitting: false,
-    isLoggedIn: true,
-    currentUser: action.currentUser,
-  })),
-  on(registerFailureAction, (state) => ({
-    ...state,
-    isSubmitting: false,
-  }))
-);
+const authFeature = createFeature({
+  name: 'auth',
+  reducer: createReducer(
+    initialState,
+    on(loginActions.login, (state) => ({
+      ...state,
+      isSubmitting: true,
+    })),
+    on(loginActions.loginSuccess, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      isLoggedIn: true,
+      currentUser: action.currentUser,
+    })),
+    on(loginActions.loginFailure, (state) => ({
+      ...state,
+      isSubmitting: false,
+    })),
+    on(registerActions.register, (state) => ({
+      ...state,
+      isSubmitting: true,
+    })),
+    on(registerActions.registerSuccess, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      isLoggedIn: true,
+      currentUser: action.currentUser,
+    })),
+    on(registerActions.registerFailure, (state) => ({
+      ...state,
+      isSubmitting: false,
+    }))
+  ),
+});
 
-export function reducers(state: AuthStateInterface, action: Action) {
-  return authReducer(state, action);
-}
+export const {
+  name: authFeatureKey,
+  reducer: authReducer,
+  selectCurrentUser,
+  selectIsLoggedIn,
+  selectIsSubmitting,
+} = authFeature;

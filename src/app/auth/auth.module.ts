@@ -11,7 +11,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { TranslateHelperService } from '../services/translate-helper/translate-helper.service';
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/reducer';
+import { authFeatureKey, authReducer } from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffect } from './store/effects/login.effect';
 import { CommonModule } from '@angular/common';
@@ -47,7 +47,7 @@ const routes: Route[] = [
     HttpClientModule,
     CommonModule,
     FormsModule,
-    StoreModule.forFeature('auth', reducers),
+    StoreModule.forFeature(authFeatureKey, authReducer),
     EffectsModule.forFeature([
       LoginEffect,
       RegisterEffect,
@@ -78,7 +78,7 @@ export class AuthModule {
     private translateHelper: TranslateHelperService
   ) {
     translateHelper.reload(translate);
-    translateHelper.lang$.subscribe((lang) =>
+    translateHelper.lang$.subscribe(() =>
       translateHelper.reload(translate)
     );
   }

@@ -1,16 +1,12 @@
-import {createAction, props} from '@ngrx/store';
-import {ActionTypes} from '../action-types';
-import {RefreshTokenInterface} from '../../types/refresh-token.interface';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-export const refreshTokenAction = createAction(
-  ActionTypes.REFRESH_TOKEN,
-);
+import { RefreshTokenInterface } from '../../types/refresh-token.interface';
 
-export const refreshTokenSuccessAction = createAction(
-  ActionTypes.REFRESH_TOKEN_SUCCESS,
-  props<{tokens: RefreshTokenInterface}>(),
-);
-
-export const refreshTokenFailureAction = createAction(
-  ActionTypes.REFRESH_TOKEN_FAILURE,
-);
+export const refreshTokenActions = createActionGroup({
+  source: 'refresh-token',
+  events: {
+    'Refresh token': emptyProps(),
+    'Refresh token success': props<{ tokens: RefreshTokenInterface }>(),
+    'Refresh token failure': emptyProps(),
+  },
+});

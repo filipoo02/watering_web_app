@@ -2,7 +2,7 @@
     @apply flex flex-col mb-2;
 
     & > div {
-        @apply bg-white relative border border-dark-80 text-dark-80 rounded overflow-hidden text-sm transition-colors;
+        @apply bg-white relative border border-dark-80 text-dark-80 rounded overflow-hidden text-xs transition-colors;
     }
 
     label {
@@ -18,7 +18,7 @@
 
         &:not(:placeholder-shown) + label,
         &:focus + label {
-            @apply text-2xs top-2.5 text-dark-60;
+            @apply text-3xs top-2.5 text-dark-60;
         }
 
         &:focus {

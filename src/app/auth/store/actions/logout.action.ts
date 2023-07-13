@@ -1,10 +1,9 @@
-import {createAction} from '@ngrx/store';
-import {ActionTypes} from '../action-types';
+import { createActionGroup, emptyProps } from '@ngrx/store';
 
-export const logoutAction = createAction(
-  ActionTypes.LOGOUT,
-);
-
-export const logoutSuccessAction = createAction(
-  ActionTypes.LOGOUT_SUCCESS
-)
+export const logoutActions = createActionGroup({
+  source: 'logout',
+  events: {
+    logout: emptyProps(),
+    'Logout success': emptyProps(),
+  },
+});

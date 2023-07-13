@@ -1,10 +1,40 @@
 <div class="flex flex-col gap-6">
   <h2 class="text-2xl">Urządzenia</h2>
-  <ng-container *ngIf="device$ | async as device; else noDevice">
-    {{device.name}}
+  <ng-container *ngIf="devices$ | async as devices">
+    <ng-container *ngIf="devices.length; else noDevices">
+      <div class="flex gap-3">
+        <div *ngFor="let device of devices" class="flex gap-5 rounded shadow bg-white p-5 md:max-w-sm">
+          <span class="wat-icon text-5xl">memory</span>
+          <div class="flex flex-col pr-1.5">
+            <a class="font-semibold" [routerLink]="['edit', device.id]">{{device.name}}</a>
+            <div class="flex flex-col text-xs text-gray-600">
+              <div class="flex items-center gap-1 mt-[-2px] ">
+                <span class="text-2xs">{{device.id}}</span>
+                <button
+                  type="button"
+                  (click)="copyDeviceId(device.id)"
+                  class="wat-icon text-sm"
+                >
+                  content_copy
+                </button>
+              </div>
+              <span *ngIf="device.description as dsc" class="mb-2 mt-1">{{ dsc }}</span>
+              <span
+                class="status-label"
+                [ngClass]="device.active ? 'status-label--success' : 'status-label--error'"
+              >
+                {{device.active ? 'device.active' : 'device.inactive' | translate}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </ng-container>
-
-  <ng-template #noDevice>
-    <span>Dodaj urządzenie.</span>
+  <ng-template #noDevices>
+    <span class="text-sm">
+      {{'device.no_devices' | translate}}
+      <a class="underline" routerLink="create">{{'device.add_first_device' | translate}}</a>
+    </span>
   </ng-template>
 </div>

@@ -1,5 +1,19 @@
 {
-    "panel": {
-        "title": "Title"
+  "title": "Title",
+  "sidebar": {
+    "devices": "Devices"
+  },
+  "device": {
+    "title": "Devices",
+    "no_devices": "No devices.",
+    "add_first_device": "Add your first device!",
+    "create_title": "Create device",
+    "form": {
+      "name": "Name",
+      "description": "Description",
+      "errors": {
+        "name": "Enter name"
+      }
     }
+  }
 }

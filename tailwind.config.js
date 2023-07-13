@@ -9,6 +9,7 @@ module.exports = {
         'primary-0': '#F8F9F6',
         'primary-10': '#EAE5DC',
         'primary-20': '#CBBFA9',
+        'primary-30': '#BCAC90',
         'primary-40': '#54684B',
         'primary-60': '#485940',
         'primary-80': '#3C4A35',
@@ -24,7 +25,8 @@ module.exports = {
         'error-80': '#CC0000',
       },
       fontSize: {
-        '2xs': '0.625rem'
+        '2xs': '0.625rem',
+        '3xs': '0.5rem'
       }
     },
     fontFamily: {

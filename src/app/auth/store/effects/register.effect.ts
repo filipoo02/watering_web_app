@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, of, switchMap, tap} from 'rxjs';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../../services/auth.service';
-import {registerAction, registerFailureAction, registerSuccessAction} from '../actions/register.action';
-import {CurrentUserInterface} from '../../../shared/types/current-user.interface';
-import {PersistenceLsService} from '../../../services/persistence/persistence-ls.service';
+import { AuthService } from '../../services/auth.service';
+import { registerActions } from '../actions';
+import { CurrentUserInterface } from '../../../shared/types/current-user.interface';
+import { PersistenceLsService } from '../../../services/persistence/persistence-ls.service';
 
 @Injectable()
 export class RegisterEffect {
   register$ = createEffect(() =>
     this.action$.pipe(
-      ofType(registerAction),
+      ofType(registerActions.register),
       switchMap((req) => {
         return this.authService.register(req.request).pipe(
           map((res) => {
@@ -30,10 +30,10 @@ export class RegisterEffect {
               id: res.id,
             };
 
-            return registerSuccessAction({ currentUser });
+            return registerActions.registerSuccess({ currentUser });
           }),
-          catchError(() => of(registerFailureAction()))
-        )
+          catchError(() => of(registerActions.registerFailure()))
+        );
       })
     )
   );
@@ -41,7 +41,7 @@ export class RegisterEffect {
   onRegisterSubmit$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(registerSuccessAction),
+        ofType(registerActions.registerSuccess),
         tap(() => this.router.navigateByUrl('/'))
       ),
     { dispatch: false }
@@ -51,7 +51,6 @@ export class RegisterEffect {
     private authService: AuthService,
     private persistenceLocalStorage: PersistenceLsService,
     private action$: Actions,
-    private router: Router,
-  ) {
-  }
+    private router: Router
+  ) {}
 }

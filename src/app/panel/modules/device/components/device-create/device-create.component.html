@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-6">
+  <div class="flex gap-2 items-center">
+    <a routerLink="../" class="wat-icon text-xl mt-[2px]">chevron_left</a>
+    <h2 class="text-xl">{{ 'device.edit_title' | translate }}</h2>
+  </div>
+  <app-device-form (onSubmit)="dispatchSubmitAction($event)"></app-device-form>
+</div>

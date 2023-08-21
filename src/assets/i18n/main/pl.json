@@ -1,10 +1,12 @@
 {
-    "title": "System nawadniania",
-    "change-to-en": "Zmień na angielski",
-    "change-to-pl": "Zmień na polski",
-    "common": {
-        "errors": {
-            "not-authenticated": "Nie jesteś zalogowany. Prosimy się zalogować."
-        }
+  "title": "System nawadniania",
+  "change-to-en": "Zmień na angielski",
+  "change-to-pl": "Zmień na polski",
+  "home-page": "Strona główna",
+  "common": {
+    "errors": {
+      "not-authenticated": "Nie jesteś zalogowany. Prosimy się zalogować."
     }
+  },
+  "not-found": "Nie znaleziono strony"
 }

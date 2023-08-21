@@ -7,5 +7,8 @@ export const getDevicesActions = createActionGroup({
     'Get devices': emptyProps(),
     'Get devices success': props<{ devices: DeviceInterface[] }>(),
     'Get devices failure': emptyProps(),
+    'Get device': props<{ id: string }>(),
+    'Get device success': props<{ device: DeviceInterface}>(),
+    'Get device failure': emptyProps(),
   },
 });

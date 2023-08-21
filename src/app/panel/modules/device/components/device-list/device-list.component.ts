@@ -14,8 +14,8 @@ export class DeviceListComponent implements OnInit {
   private toast = inject(ToastrTranslationService);
   private clipboard = inject(Clipboard);
 
-  showDeviceId = false;
   devices$ = this.deviceFacadeService.devices$;
+  isLoading$ = this.deviceFacadeService.isLoading$;
 
   ngOnInit(): void {
     this.deviceFacadeService.getDevices();

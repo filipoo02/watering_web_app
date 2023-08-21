@@ -8,11 +8,12 @@
     "no_devices": "Brak urządzeń.",
     "add_first_device": "Dodaj swoje pierwsze urządzenie!",
     "create_title": "Nowe urządzenie",
+    "edit_title": "Edytuj urządzenie",
     "active": "Aktywne",
     "inactive": "Nieaktywne",
     "device_id_copied": "ID urządzenia skopiowano do schowka",
     "form": {
-      "submit": "Dodaj urządzenie",
+      "submit": "Zapisz",
       "name": "Nazwa",
       "description": "Opis",
       "errors": {

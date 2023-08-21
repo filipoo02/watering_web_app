@@ -8,7 +8,12 @@
     "no_devices": "No devices.",
     "add_first_device": "Add your first device!",
     "create_title": "Create device",
+    "edit_title": "Edit device",
+    "active": "Active",
+    "inactive": "Inactive",
+    "device_id_copied": "Device's ID copied to clipboard",
     "form": {
+      "submit": "save",
       "name": "Name",
       "description": "Description",
       "errors": {

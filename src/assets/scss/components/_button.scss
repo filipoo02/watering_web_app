@@ -1,41 +1,44 @@
-button.wat-btn {
-    @apply rounded shadow px-6 py-2 relative;
+button,
+a {
+  &.wat-btn {
+      @apply rounded shadow px-6 py-2 relative;
 
-    & span {
-        @apply text-sm text-white/80 transition-colors transition-opacity opacity-100;
-    }
-
-  &--small {
-      @apply px-4 py-1;
       & span {
-        @apply text-xs;
-    }
-  }
+          @apply text-sm text-white/80 transition-colors transition-opacity opacity-100;
+      }
 
-    &--primary {
-        @apply bg-primary-60 transition-colors;
-
-        &:hover {
-            @apply bg-primary-80;
-
-            & span {
-                @apply text-white;
-            }
-        }
-    }
-
-    &--pending {
-        @apply pointer-events-none bg-dark-40;
-
-        &::after {
-            @apply content-[''] m-auto inset-0 rounded-full absolute w-5 h-5 bg-transparent border-[3px] border-transparent border-t-dark-80;
-            animation: rotation 1s ease infinite;
-        }
-
+    &--small {
+        @apply px-4 py-1;
         & span {
-            @apply opacity-0;
-        }
+          @apply text-xs;
+      }
     }
+
+      &--primary {
+          @apply bg-primary-60 transition-colors;
+
+          &:hover {
+              @apply bg-primary-80;
+
+              & span {
+                  @apply text-white;
+              }
+          }
+      }
+
+      &--pending {
+          @apply pointer-events-none bg-dark-40;
+
+          &::after {
+              @apply content-[''] m-auto inset-0 rounded-full absolute w-5 h-5 bg-transparent border-[3px] border-transparent border-t-dark-80;
+              animation: rotation 1s ease infinite;
+          }
+
+          & span {
+              @apply opacity-0;
+          }
+      }
+  }
 }
 
 a.wat-anchor-neutral {

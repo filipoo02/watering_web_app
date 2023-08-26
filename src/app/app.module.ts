@@ -20,10 +20,10 @@ import { TranslateHelperService } from './services/translate-helper/translate-he
 import { LangType } from './services/translate-helper/language.type';
 import { APP_CONFIG } from './config/app.config';
 import { enviroment } from '../environmets/enviroment';
-import { ApiInterceptor } from './api.interceptor';
+import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { PanelModule } from './panel/panel.module';
-import { ErrorHandlerInterceptor } from './error-handler.interceptor';
+import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
 import { PersistenceLsService } from './services/persistence/persistence-ls.service';
 
 export function HttpLoaderFactory(http: HttpClient) {

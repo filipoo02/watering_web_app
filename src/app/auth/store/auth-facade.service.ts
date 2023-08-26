@@ -6,6 +6,7 @@ import { RegisterRequestInterface } from '../types/register-request.interface';
 import { registerActions, loginActions, logoutActions, refreshTokenActions } from './actions';
 import { selectIsSubmitting } from './reducer';
 import { LoginRequestInterface } from '../types/login-request.interface';
+import {RefreshTokenInterface} from '../types/refresh-token.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,9 @@ export class AuthFacadeService {
 
   refreshTokens(): void {
     this.store.dispatch(refreshTokenActions.refreshToken());
+  }
+
+  assignTokens(tokens: RefreshTokenInterface): void {
+    this.store.dispatch(refreshTokenActions.refreshTokenSuccess({ tokens }));
   }
 }

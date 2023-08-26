@@ -8,9 +8,9 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { APP_CONFIG } from './config/app.config';
-import { AppConfigInterface } from './config/app-config.interface';
-import { PersistenceLsService } from './services/persistence/persistence-ls.service';
+import { APP_CONFIG } from '../../config/app.config';
+import { AppConfigInterface } from '../../config/app-config.interface';
+import { PersistenceLsService } from '../../services/persistence/persistence-ls.service';
 
 export const RT_REQUEST = new HttpContextToken(() => false);
 

@@ -10,7 +10,7 @@ import { ToastrTranslationService } from 'src/app/services/toastr/toastr-transla
 import { AuthCredentialsInterface } from '../types/auth-credentials.interface';
 import { RegisterRequestInterface } from '../types/register-request.interface';
 import { PersistenceLsService } from '../../services/persistence/persistence-ls.service';
-import { RT_REQUEST } from '../../api.interceptor';
+import { RT_REQUEST } from '../../core/interceptors/api.interceptor';
 import { RefreshTokenInterface } from '../types/refresh-token.interface';
 import { selectCurrentUser } from '../store/reducer';
 import { AuthFacadeService } from '../store/auth-facade.service';

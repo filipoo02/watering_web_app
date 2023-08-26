@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: '**',
     loadComponent: () => import('./common/components/not-found/not-found.component').then((x) => x.NotFoundComponent)
-  }git
+  }
 ];
 
 @NgModule({

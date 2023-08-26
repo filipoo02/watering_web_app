@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 import { DeviceFacadeService } from '../../store/device-facade.service';
 import { ToastrTranslationService } from '../../../../../services/toastr/toastr-translation.service';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-device-list',

@@ -1,36 +1,27 @@
-import { Directive } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Directive, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+
+import { ValidateFormBefore } from './validate-form-before';
 
 @Directive()
-export abstract class FormBaseComponent {
-  form: FormGroup;
-  abstract dispatchSubmitAction(): void;
+export abstract class FormBaseComponent<T = unknown> extends ValidateFormBefore implements OnInit {
+  protected cdr = inject(ChangeDetectorRef);
+  protected fb = inject(FormBuilder);
 
-  get isFormValid(): boolean {
-    return this.form.valid;
-  }
+  @Output('onSubmit') onSubmitEvent = new EventEmitter<T>();
+  @Input() initialValues: T;
 
-  onSubmit(): void {
-    if (!this.isFormValid) {
-      this.form.markAllAsTouched();
-      this.scrollToTheFirstError();
+  ngOnInit(): void {
+    if (!this.initialValues) {
       return;
     }
 
-    this.dispatchSubmitAction();
+    this.form.patchValue(this.initialValues);
+    console.log(this.initialValues);
+    this.cdr.markForCheck();
   }
 
-  scrollToTheFirstError(): void {
-    const fieldWithError =
-      document.querySelector<HTMLInputElement>('form input.ng-invalid') ||
-      document.querySelector<HTMLTextAreaElement>('form textarea.ng-invalid') ||
-      document.querySelector<HTMLInputElement>('.form-group input.ng-invalid') ||
-      document.querySelector<HTMLInputElement>('.form-group textarea.ng-invalid');
-
-    if (!fieldWithError) {
-      return;
-    }
-
-    fieldWithError.focus();
+  dispatchSubmitAction(): void {
+    this.onSubmitEvent.emit(this.form.getRawValue());
   }
 }

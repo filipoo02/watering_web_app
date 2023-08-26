@@ -2,11 +2,13 @@ import { DeviceStateInterface } from '../types/device-state.interface';
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 import { createDeviceActions, getDevicesActions } from './actions';
+import { updateDeviceActions } from './actions/update-device.action';
 
 const initialState: DeviceStateInterface = {
-  devices: [],
+  devices: null,
   isLoading: null,
   isSubmitting: null,
+  device: null,
 };
 
 const deviceFeature = createFeature({
@@ -34,7 +36,13 @@ const deviceFeature = createFeature({
     on(createDeviceActions.createDeviceFailure, (state) => ({
       ...state,
       isSubmitting: false,
-    }))
+    })),
+    on(getDevicesActions.getDevice, (state) => ({ ...state, isLoading: true })),
+    on(getDevicesActions.getDeviceSuccess, (state, { device }) => ({ ...state, isLoading: false, device })),
+    on(getDevicesActions.getDeviceFailure, (state) => ({ ...state, isLoading: false })),
+    on(updateDeviceActions.updateDevice, (state) => ({ ...state, isSubmitting: true })),
+    on(updateDeviceActions.updateDeviceSuccess, (state) => ({ ...state, isSubmitting: false })),
+    on(updateDeviceActions.updateDeviceFailure, (state) => ({ ...state, isSubmitting: false })),
   )
 });
 
@@ -43,5 +51,6 @@ export const {
  reducer: deviceReducer,
  selectIsLoading,
  selectIsSubmitting,
- selectDevices
+ selectDevices,
+  selectDevice,
 } = deviceFeature;

@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 import { DeviceFacadeService } from '../../store/device-facade.service';
 import { ToastrTranslationService } from '../../../../../services/toastr/toastr-translation.service';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-device-list',
@@ -14,8 +14,8 @@ export class DeviceListComponent implements OnInit {
   private toast = inject(ToastrTranslationService);
   private clipboard = inject(Clipboard);
 
-  showDeviceId = false;
   devices$ = this.deviceFacadeService.devices$;
+  isLoading$ = this.deviceFacadeService.isLoading$;
 
   ngOnInit(): void {
     this.deviceFacadeService.getDevices();

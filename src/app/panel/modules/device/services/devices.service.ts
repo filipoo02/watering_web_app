@@ -1,25 +1,39 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {DeviceInterface} from '../types/device.interface';
-import {CreateDeviceInterface} from '../types/create-device.interface';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
+import { DeviceInterface } from '../types/device.interface';
+import { DeviceFormValuesInterface } from '../types/device-form-values.interface';
+import { ResponseInterface } from '../../../../shared/types/response.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DevicesService {
-  url = '/device'
+  private toastrService = inject(ToastrService);
+
+  url = '/device';
   http = inject(HttpClient);
 
   getDevices(): Observable<DeviceInterface[]> {
     return this.http.get<DeviceInterface[]>(this.url);
   }
 
-  create(data: CreateDeviceInterface): Observable<{id: string}> {
-    return this.http.post<{id: string}>(`${this.url}/create`, data);
+  getDevice(id: string): Observable<DeviceInterface> {
+    return this.http.get<DeviceInterface>(`${this.url}/${id}`);
   }
 
-  update(data: Partial<DeviceInterface>): Observable<DeviceInterface> {
-    return this.http.patch<DeviceInterface>(this.url, data);
+  create(data: DeviceFormValuesInterface): Observable<{ id: string }> {
+    return this.http.post<{ id: string }>(`${this.url}/create`, data);
+  }
+
+  update(
+    device: Partial<DeviceInterface>,
+    id: string,
+  ): Observable<ResponseInterface<null>> {
+    return this.http
+      .patch<ResponseInterface>(`${this.url}/${id}`, { device })
+      .pipe(tap((res) => this.toastrService.success(res.message)));
   }
 }

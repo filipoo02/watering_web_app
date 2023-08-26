@@ -2,9 +2,11 @@
     "title": "Watergin system",
     "change-to-en": "Change lang to en",
     "change-to-pl": "Change lang to pl",
-    "common": {
+  "homepage": "Homepage",
+  "common": {
         "errors": {
             "not-authenticated": "You're not logged in. Please log in."
         }
-    }
+    },
+  "not-found": "Page not found"
 }

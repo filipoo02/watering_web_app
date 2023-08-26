@@ -1,0 +1,12 @@
+.loader {
+  animation: rotation 1s ease infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}

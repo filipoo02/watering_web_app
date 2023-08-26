@@ -1,1 +1,19 @@
-<p>device-edit works!</p>
+<div class="flex flex-col gap-6">
+  <div class="flex gap-2 items-center">
+    <a routerLink="../../" class="wat-icon text-xl mt-[2px]">chevron_left</a>
+    <h2 class="text-xl">{{ 'device.create_title' | translate }}</h2>
+  </div>
+  <ng-container *ngIf="isLoading$ | async; else loaded">
+    <app-loader></app-loader>
+  </ng-container>
+</div>
+
+<ng-template #loaded>
+  <ng-container *ngIf="device$ | async as device">
+    <app-device-form
+      *ngIf="device"
+      (onSubmit)="update($event)"
+      [initialValues]="device"
+    ></app-device-form>
+  </ng-container>
+</ng-template>

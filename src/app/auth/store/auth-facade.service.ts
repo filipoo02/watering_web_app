@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 
 import { AppStateInterface } from '../../shared/types/app-state.interface';
 import { RegisterRequestInterface } from '../types/register-request.interface';
-import { registerActions, loginActions, logoutActions } from './actions';
+import { registerActions, loginActions, logoutActions, refreshTokenActions } from './actions';
 import { selectIsSubmitting } from './reducer';
 import { LoginRequestInterface } from '../types/login-request.interface';
 
@@ -25,5 +25,9 @@ export class AuthFacadeService {
 
   logout(): void {
     this.store.dispatch(logoutActions.logout());
+  }
+
+  refreshTokens(): void {
+    this.store.dispatch(refreshTokenActions.refreshToken());
   }
 }

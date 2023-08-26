@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-6">
-  <h2 class="text-2xl">Urządzenia</h2>
-  <ng-container *ngIf="devices$ | async as devices">
+  <h2 class="text-2xl">{{'device.title' | translate}}</h2>
+  <ng-container *ngIf="devices$ | async as devices; else loader">
     <ng-container *ngIf="devices.length; else noDevices">
       <div class="flex gap-3">
         <div *ngFor="let device of devices" class="flex gap-5 rounded shadow bg-white p-5 md:max-w-sm">
@@ -38,3 +38,12 @@
     </span>
   </ng-template>
 </div>
+
+<ng-template #loader>
+  <div
+    *ngIf="isLoading$ | async"
+    class="w-[321px] h-[134px] flex gap-5 rounded shadow bg-white p-5 items-center justify-center"
+  >
+    <app-loader></app-loader>
+  </div>
+</ng-template>

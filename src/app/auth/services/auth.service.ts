@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, catchError, switchMap, of } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { PersistenceLsService } from '../../services/persistence/persistence-ls.
 import { RT_REQUEST } from '../../api.interceptor';
 import { RefreshTokenInterface } from '../types/refresh-token.interface';
 import { selectCurrentUser } from '../store/reducer';
+import { AuthFacadeService } from '../store/auth-facade.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,8 @@ export class AuthService {
     private store: Store<AppStateInterface>,
     private router: Router,
     private toastrTranslation: ToastrTranslationService,
-    private persistenceLsService: PersistenceLsService
+    private persistenceLsService: PersistenceLsService,
+    private authFacade: AuthFacadeService,
   ) {}
 
   login(req: LoginRequestInterface): Observable<AuthCredentialsInterface> {
@@ -50,30 +52,15 @@ export class AuthService {
     return this.store.pipe(
       select(selectCurrentUser),
       map((user) => !!user),
-      switchMap((isLoggedIn) => {
-        if (this.persistenceLsService.getValue('refresh_token')) {
-          return this.refreshToken().pipe(
-            map(({ access_token, refresh_token }) => {
-              this.persistenceLsService.setValue('access_token', access_token);
-              this.persistenceLsService.setValue(
-                'refresh_token',
-                refresh_token
-              );
-              return true;
-            }),
-            catchError(() => {
-              this.router.navigateByUrl('/auth/login');
-              return of(false);
-            })
-          );
-        }
+      tap((isLoggedIn) => {
         if (!isLoggedIn) {
           this.toastrTranslation.error('common.errors.not-authenticated');
           this.router.navigateByUrl('/auth/login');
+          return;
         }
 
-        return of(isLoggedIn);
-      })
+        this.authFacade.refreshTokens();
+      }),
     );
   }
 }
